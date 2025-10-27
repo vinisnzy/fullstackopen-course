@@ -10,7 +10,7 @@ const Part = (props) => {
   return (
     <div>
       <p>
-        {props.part} {props.exercise}
+        {props.name} {props.exercises}
       </p>
     </div>
   );
@@ -19,47 +19,48 @@ const Part = (props) => {
 const Content = (props) => {
   return (
     <div>
-      <Part part={props.parts[0].part} exercise={props.parts[0].exercises} />
-      <Part part={props.parts[1].part} exercise={props.parts[1].exercises} />
-      <Part part={props.parts[2].part} exercise={props.parts[2].exercises} />
+      {props.parts.map((part, index) => {
+        return <Part key={index} name={part.name} exercises={part.exercises} />;
+      })}
     </div>
   );
 };
 
 const Total = (props) => {
-  let sum = 0;
-  props.parts.forEach((element) => {
-    sum += element.exercises;
-  });
+  const numbersOfExercises = props.parts.reduce(
+    (sum, part) => sum + part.exercises,
+    0
+  );
   return (
     <div>
-      <p>Number of exercises {sum}</p>
+      <p>Number of exercises {numbersOfExercises}</p>
     </div>
   );
 };
 
 const App = () => {
-  const course = "Desenvolvimento de aplicação Half Stack";
-  const parts = [
-    {
-      part: "Fundamentos da biblioteca React",
-      exercises: 10,
-    },
-    {
-      part: "Usando props para passar dados",
-      exercises: 7,
-    },
-    {
-      part: "Estado de um componente",
-      exercises: 14,
-    },
-  ];
-
+  const course = {
+    name: "Desenvolvimento de aplicação Half Stack",
+    parts: [
+      {
+        name: "Fundamentos da biblioteca React",
+        exercises: 10,
+      },
+      {
+        name: "Usando props para passar dados",
+        exercises: 7,
+      },
+      {
+        name: "Estado de um componente",
+        exercises: 14,
+      },
+    ],
+  };
   return (
     <div>
-      <Header course={course} />
-      <Content parts={parts} />
-      <Total parts={parts} />
+      <Header course={course.name} />
+      <Content parts={course.parts} />
+      <Total parts={course.parts} />
     </div>
   );
 };
