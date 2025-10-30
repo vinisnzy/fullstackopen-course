@@ -5,16 +5,26 @@ const Button = ({ handleEvent, text }) => {
 }
 
 const Statistics = ({ good, neutral, bad, total }) => {
-  return (
-    <div>
-      <p>Good: {good}</p>
-      <p>Neutral: {neutral}</p>
-      <p>Bad: {bad}</p>
-      <p>Total: {total}</p>
-      <p>Average: {(good * 1 + neutral * 0 + bad * -1) / total}</p>
-      <p>Positive:{(good / total) * 100}%</p>
-    </div>
-  )
+  if (total > 0) {
+    return (
+      <div>
+        <h1>Statistics</h1>
+        <p>Good: {good}</p>
+        <p>Neutral: {neutral}</p>
+        <p>Bad: {bad}</p>
+        <p>Total: {total}</p>
+        <p>Average: {(good * 1 + neutral * 0 + bad * -1) / total}</p>
+        <p>Positive:{(good / total) * 100}%</p>
+      </div>
+    )
+  } else {
+    return (
+      <div>
+        <h1>Statistics</h1>
+        <p>No feedback given</p>
+      </div>
+    )
+  }
 }
 
 const App = () => {
